@@ -1,0 +1,15 @@
+name: Branch Names
+on: [push]
+
+jobs:
+  branch-names:
+    runs-on: ubuntu-latest
+    name: sync-red
+    steps:
+    - uses: deepakputhraya/action-branch-name@master
+      with:
+        #regex: '([a-z])+\/([a-z])+' # Regex the branch should match. This example enforces grouping
+        allowed_prefixes: 'epic/ENGE-,ENGE-' # All branches should start with the given prefix
+        ignore: master,staging,pod-green,pod-red # Ignore exactly matching branch names from convention
+        #min_length: 5 # Min length of the branch name
+        #max_length: 20 # Max length of the branch name
