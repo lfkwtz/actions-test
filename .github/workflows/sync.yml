@@ -1,0 +1,41 @@
+name: Sync
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sync-red:
+    runs-on: ubuntu-latest
+    name: sync-red
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Opening master > pod-red
+        id: pull-to-red
+        uses: tretuna/sync-branches@1.1.0
+        with:
+          GITHUB_TOKEN: ${{secrets.GH_SECRET}}
+          FROM_BRANCH: "master"
+          TO_BRANCH: "pod-red"
+  sync-green:
+    runs-on: ubuntu-latest
+    name: sync-green
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Opening master > pod-green
+        id: pull-to-green
+        uses: tretuna/sync-branches@1.1.0
+        with:
+          GITHUB_TOKEN: ${{secrets.GH_SECRET}}
+          FROM_BRANCH: "master"
+          TO_BRANCH: "pod-green"
